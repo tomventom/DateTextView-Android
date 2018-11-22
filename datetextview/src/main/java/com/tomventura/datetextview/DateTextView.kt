@@ -18,6 +18,7 @@ class DateTextView(context: Context, attrs: AttributeSet) : TextView(context, at
     private val simpleDateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
 
     init {
+        simpleDateFormat.timeZone = Calendar.getInstance().timeZone
         setupAttributes(attrs)
     }
 
@@ -25,7 +26,7 @@ class DateTextView(context: Context, attrs: AttributeSet) : TextView(context, at
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.DateTextView, 0, 0)
         val dateFormatAttribute: String? = typedArray.getString(R.styleable.DateTextView_dateFormat)
         dateFormat = dateFormatAttribute ?: DEFAULT_DATE_FORMAT
-
+        simpleDateFormat.applyPattern(dateFormat)
         typedArray.recycle()
     }
 
